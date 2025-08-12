@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Login | CineVerse</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;400&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0a1121 0%, #14213d 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    .main-box {
+      background: rgba(22, 32, 56, 0.99);
+      border-radius: 22px;
+      box-shadow: 0 8px 48px #000c, 0 2px 12px #3aefff33;
+      width: 370px;
+      max-width: 95vw;
+      padding: 34px 28px 30px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow .32s;
+    }
+    .tab-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 36px;
+      position: relative;
+      z-index: 2;
+    }
+    .tab-btn {
+      width: 48%;
+      padding: 12px 0;
+      background: transparent;
+      border: none;
+      color: #a7c7f7;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 10px;
+      position: relative;
+      transition: color .24s;
+      z-index: 2;
+    }
+    .tab-btn.active {
+      color: #fff;
+    }
+    .tab-indicator {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 48%;
+      height: 4px;
+      border-radius: 6px;
+      background: linear-gradient(90deg, #00fff7, #9d4edd, #00fff7 110%);
+      transition: left .36s cubic-bezier(.6,0,.43,1.25);
+      z-index: 1;
+    }
+    .form-area {
+      position: relative;
+      height: 250px;
+      min-height: 200px;
+      margin-bottom: 12px;
+    }
+    .form-wrap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      transition: transform .55s cubic-bezier(.72,-0.13,.45,1.27), opacity .33s;
+      will-change: transform;
+      opacity: 1;
+      z-index: 1;
+    }
+    .form-wrap.signup {
+      transform: translateX(100%) scale(0.96);
+      opacity: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .main-box.signup-mode .form-wrap.login {
+      transform: translateX(-100%) scale(0.96);
+      opacity: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .main-box.signup-mode .form-wrap.signup {
+      transform: translateX(0) scale(1);
+      opacity: 1;
+      z-index: 1;
+      pointer-events: auto;
+    }
+    .main-box:not(.signup-mode) .form-wrap.login {
+      transform: translateX(0) scale(1);
+      opacity: 1;
+      z-index: 1;
+      pointer-events: auto;
+    }
+    .main-box:not(.signup-mode) .form-wrap.signup {
+      transform: translateX(100%) scale(0.96);
+      opacity: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .inpt {
+      width: 100%;
+      font-size: 1rem;
+      padding: 11px 12px;
+      border: 1.7px solid #293e63;
+      border-radius: 8px;
+      background: #18223a;
+      color: #e6f6ff;
+      margin-bottom: 21px;
+      margin-top: 2px;
+      font-family: inherit;
+      outline: none;
+      transition: border .21s;
+    }
+    .inpt:focus {
+      border-color: #00fff7;
+      background: #192b45;
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 11px 0;
+      border: none;
+      border-radius: 9px;
+      font-size: 1.09rem;
+      font-weight: 600;
+      background: linear-gradient(90deg, #00fff7, #9d4edd 78%);
+      color: #101629;
+      box-shadow: 0 2px 16px #00fff72a, 0 1px 8px #9d4edd33;
+      cursor: pointer;
+      margin-top: 8px;
+      letter-spacing: 0.5px;
+      transition: background .17s, color .17s, transform .13s;
+    }
+    .submit-btn:hover {
+      background: linear-gradient(90deg, #9d4edd 10%, #00fff7 90%);
+      color: #fff;
+      transform: scale(1.03);
+    }
+    .switch-txt {
+      text-align: center;
+      color: #aad3ff;
+      font-size: .99rem;
+      margin-top: 16px;
+    }
+    .switch-txt a {
+      color: #00fff7;
+      cursor: pointer;
+      text-decoration: underline;
+      font-weight: 600;
+      transition: color .18s;
+    }
+    .switch-txt a:hover {
+      color: #9d4edd;
+    }
+    .brand-title {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #00fff7;
+      letter-spacing: 1.1px;
+      margin-bottom: 15px;
+      margin-top: -12px;
+      user-select: none;
+    }
+    /* Animation glow effect on box */
+    .main-box::before {
+      content: "";
+      position: absolute;
+      left: -22%;
+      top: 60%;
+      width: 150%;
+      height: 43%;
+      background: radial-gradient(circle at 38% 50%,#00fff7b7 0%,#9d4edd77 70%,#181a23 100%);
+      opacity: 0.12;
+      filter: blur(22px);
+      z-index: 0;
+      pointer-events: none;
+    }
+    @media (max-width: 480px) {
+      .main-box { padding: 20px 8px 16px 8px; width: 98vw;}
+      .brand-title { font-size: 1.38rem;}
+      .tab-btn { font-size: 1rem;}
+      .form-area { height: 230px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="main-box" id="mainBox">
+    <div class="brand-title">CineVerse</div>
+    <div class="tab-bar">
+      <button class="tab-btn active" id="loginTab" onclick="switchTab('login')">Login</button>
+      <button class="tab-btn" id="signupTab" onclick="switchTab('signup')">Sign Up</button>
+      <div class="tab-indicator" id="tabIndicator"></div>
+    </div>
+    <div class="form-area">
+      <!-- Login Form -->
+      <form class="form-wrap login" autocomplete="on" onsubmit="return fakeLogin(event)">
+        <input class="inpt" type="email" placeholder="Email" required />
+        <input class="inpt" type="password" placeholder="Password" required minlength="4" />
+        <button class="submit-btn" type="submit">Login</button>
+      </form>
+      <!-- Signup Form -->
+      <form class="form-wrap signup" autocomplete="on" onsubmit="return fakeSignup(event)">
+        <input class="inpt" type="text" placeholder="Full Name" required />
+        <input class="inpt" type="email" placeholder="Email Address" required />
+        <input class="inpt" type="password" placeholder="Password" required minlength="4" />
+        <button class="submit-btn" type="submit">Sign Up</button>
+      </form>
+    </div>
+    <div class="switch-txt" id="switchText">
+      New here? <a onclick="switchTab('signup')">Create an account</a>
+    </div>
+  </div>
+  <script>
+    // Tab switching and animation
+    const mainBox = document.getElementById('mainBox');
+    const loginTab = document.getElementById('loginTab');
+    const signupTab = document.getElementById('signupTab');
+    const tabIndicator = document.getElementById('tabIndicator');
+    const switchText = document.getElementById('switchText');
+    function switchTab(tab) {
+      if(tab === 'signup') {
+        mainBox.classList.add('signup-mode');
+        loginTab.classList.remove('active');
+        signupTab.classList.add('active');
+        tabIndicator.style.left = "52%";
+        switchText.innerHTML = 'Already have an account? <a onclick="switchTab(\'login\')">Login now</a>';
+      } else {
+        mainBox.classList.remove('signup-mode');
+        loginTab.classList.add('active');
+        signupTab.classList.remove('active');
+        tabIndicator.style.left = "0";
+        switchText.innerHTML = 'New here? <a onclick="switchTab(\'signup\')">Create an account</a>';
+      }
+    }
+    // Animation for indicator on load
+    tabIndicator.style.left = "0";
+    // Demo fake login/signup
+    function fakeLogin(e) {
+      e.preventDefault();
+      alert('Logged in! (Demo only)');
+      return false;
+    }
+    function fakeSignup(e) {
+      e.preventDefault();
+      alert('Account created! (Demo only)');
+      return false;
+    }
+  </script>
+</body>
+</html>

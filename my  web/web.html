@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CineVerse — Futuristic Movie Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.css" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #0d1b2a;
+      --card: #0f2a44;
+      --accent: #00fff7;
+      --accent2: #9d4edd;
+      --muted: #9aa8b2;
+      --glass: rgba(255, 255, 255, 0.03);
+      font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    html, body {
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(0, 255, 247, 0.03), transparent), var(--bg);
+      color: #cfeef7;
+      height: 100%;
+    }
+    .container-xl { max-width: 1200px; }
+    header { padding: 18px 0; }
+    .logo { font-weight: 700; letter-spacing: 1px; color: var(--accent); font-size: 22px; }
+    .nav-link { color: rgba(255,255,255,0.7); }
+    .hero { position: relative; border-radius: 14px; overflow: hidden; margin-bottom: 26px; min-height: 360px; background: linear-gradient(180deg,rgba(0,0,0,0.35),rgba(0,0,0,0.6)); }
+    .hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.45) saturate(1.05); }
+    .hero .overlay { position: relative; z-index: 2; padding: 48px; }
+    .tagline { font-size: 28px; font-weight: 600; color: #e6fcff; }
+    .sub { color: var(--muted); margin-top: 6px; }
+    .search-bar { max-width: 720px; margin-top: 18px; }
+    .movie-card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.05)); border-radius: 10px; overflow: hidden; transition: transform .18s, box-shadow .18s; cursor: pointer; }
+    .movie-card:hover { transform: translateY(-6px); box-shadow: 0 8px 30px rgba(0,0,0,.6);}
+    .poster { height: 220px; object-fit: cover; width: 100%; }
+    .card-body { padding: 12px; }
+    .pill { background: linear-gradient(90deg, var(--accent), var(--accent2)); color: #001820; padding: 6px 10px; border-radius: 999px; font-weight: 600; display: inline-block;}
+    .glow { box-shadow: 0 0 12px rgba(0,255,247,0.08);}
+    footer { padding: 32px 0; color: var(--muted);}
+    /* Movie Details Modal */
+    .details-modal .modal-content { background: #151d2b; color: #fff; border-radius: 16px;}
+    .details-modal .modal-body { display: flex; flex-wrap: wrap; gap: 32px; padding: 32px;}
+    .details-modal .movie-poster { max-width: 300px; width: 100%; border-radius: 12px; box-shadow: 0 6px 24px #000a;}
+    .details-modal .info-area { flex: 1 1 0; min-width: 220px;}
+    .details-modal .movie-title { font-size: 2rem; font-weight: 700; margin-bottom: 12px;}
+    .details-modal .genre-badge { background: #232f40; color: var(--accent); font-size: 13px; border-radius: 7px; padding: 4px 10px; margin-right: 7px;}
+    .details-modal .desc { color: #b4d8e7; font-size: 1.1rem; margin-bottom: 12px;}
+    .details-modal .buy-section { margin-top: 20px;}
+    .details-modal .price { font-size: 1.5rem; font-weight: 700; margin-right: 15px;}
+    .details-modal .buy-btn { background: var(--accent); color: #001820; padding: 10px 36px; font-weight: 700; border: none; border-radius: 8px;}
+    .details-modal .buy-btn:hover { background: var(--accent2); color: #fff;}
+    .details-modal .meta { margin-top: 8px; color: var(--muted);}
+    .details-modal .rating-star { color: gold; margin-right: 3px;}
+    .details-modal .age-badge { background: #232f40; color: #fff; border-radius: 7px; padding: 3px 10px; font-size: 0.85em; margin-right: 8px;}
+    .details-modal .close { position: absolute; top: 16px; right: 30px; font-size: 2.1rem; color: #fff; opacity: .8; border: none; background: none;}
+    @media (max-width: 768px) {
+      .hero {min-height: 240px;}
+      .tagline {font-size: 20px;}
+      .details-modal .modal-body { flex-direction: column; gap: 20px; padding: 16px;}
+      .details-modal .movie-poster { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container-xl">
+    <header class="d-flex align-items-center justify-content-between">
+	<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>CineVerse Menu Bar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #181a23;
+      min-height: 100vh;
+    }
+    .navbar {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 0 12px 0;
+      background: #181a23;
+      position: sticky;
+      top: 0;
+      z-index: 99;
+    }
+    .nav-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      outline: none;
+      background: #232946;
+      color: #fff;
+      font-size: 1.18rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 0 0 0 #00fff7;
+      position: relative;
+      transition: background .15s, color .15s, box-shadow .17s, transform .13s;
+      z-index: 1;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .nav-btn::before {
+      content: "";
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      background: linear-gradient(120deg, #00fff7, #9d4edd 40%, #ff6b6b 75%, #00fff7 100%);
+      background-size: 200% 200%;
+      filter: blur(7px);
+      opacity: 0.7;
+      z-index: -1;
+      transition: opacity .2s;
+      animation: rgb-glow 2.2s linear infinite;
+    }
+    @keyframes rgb-glow {
+      0% { background-position: 0% 50%;}
+      50% { background-position: 100% 50%;}
+      100% { background-position: 0% 50%;}
+    }
+    .nav-btn:hover {
+      background: #27284a;
+      color: #00fff7;
+      box-shadow: 0 0 18px 0 #00fff799, 0 2px 8px #9d4edd44;
+      transform: scale(1.07);
+    }
+    .nav-btn:active {
+      transform: scale(0.93);
+      box-shadow: 0 2px 8px 0 #9d4edd66;
+    }
+    @media (max-width: 600px) {
+      .navbar { gap: 7px; padding: 12px 0 7px 0; }
+      .nav-btn { width: 36px; height: 36px; font-size: 1.05rem;}
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <button class="nav-btn" title="Home" onclick="location.href='index.html'">🏠</button>
+    <button class="nav-btn" title="Library" onclick="location.href='library.html'">📚</button>
+    <button class="nav-btn" title="Movie" onclick="location.href='movie.html'">🎬</button>
+    <button class="nav-btn" title="Drama" onclick="location.href='drama.html'">🎭</button>
+    <button class="nav-btn" title="Anime" onclick="location.href='anime.html'">🍥</button>
+    <button class="nav-btn" title="Profile" onclick="location.href='profile.html'">👤</button>
+    <button class="nav-btn" title="History" onclick="location.href='history.html'">🕓</button>
+	<button class="nav-btn" title="Signup" onclick="location.href='sing.html'">👤</button>
+  </nav>
+  <!-- Your main content here -->
+</body>
+</html>
+      <div class="d-flex align-items-center gap-3">
+        <div class="logo">Cine<span style="color: var(--accent2)">Verse</span></div>
+        </nav>
+      </div>
+      <div class="d-none align-items-center gap-3" id="userInfo">
+        <span id="userEmail" style="font-weight:600"></span>
+        <button id="logoutBtn" class="btn btn-sm btn-outline-light">Logout</button>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero glow">
+      <video autoplay muted loop playsinline src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"></video>
+      <div class="overlay text-white">
+        <div class="row align-items-center">
+          <div class="col-md-7">
+            <div class="pill">New • Trending</div>
+            <h1 class="tagline mt-3">Discover Tomorrow's Stories Today</h1>
+            <p class="sub">Futuristic picks, hand-curated collections, and AI-style recommendations — all on a dark stage.</p>
+            <div class="search-bar mt-3">
+              <input id="searchInput" class="form-control form-control-lg" placeholder="Search movies, actors, genres..."/>
+            </div>
+          </div>
+          <div class="col-md-5 text-end d-none d-md-block">
+            <img src="https://via.placeholder.com/260x150?text=Featured+Poster" alt="featured" style="border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.6)"/>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIBRARY -->
+	<button onclick="window.location.href='library.html'">Go to Library</button>
+    <section id="library">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>Library</h3>
+        <div class="text-muted">Showing <span id="count">0</span> items</div>
+      </div>
+      <div id="grid" class="row g-3"></div>
+    </section>
+
+    <footer class="mt-5">
+      &copy; <span id="year"></span> CineVerse • Built with free tools • Starter template
+    </footer>
+  </div>
+
+  <!-- Movie Details Modal (Epic Games style) -->
+  <div class="modal fade details-modal" id="detailsModal" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content position-relative">
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+        <div class="modal-body">
+          <img src="" alt="Poster" class="movie-poster me-4" id="detailsPoster"/>
+          <div class="info-area">
+            <div>
+              <span class="pill" id="detailsBadge"></span>
+              <span class="age-badge" id="detailsAge"></span>
+            </div>
+            <div class="movie-title" id="detailsTitle"></div>
+            <div id="detailsGenres" class="mb-2"></div>
+            <div class="desc" id="detailsDesc"></div>
+            <div class="meta">
+              <span id="detailsYear"></span> • 
+              <span id="detailsRating"></span>
+            </div>
+            <div class="buy-section">
+              <span class="price" id="detailsPrice"></span>
+              <button class="buy-btn" id="buyBtn">Buy Now</button>
+            </div>
+            <div class="mt-3">
+              <button class="btn btn-sm btn-outline-light me-2" id="detailsPlayBtn"><i class="fa fa-play"></i> Play Trailer</button>
+              <button class="btn btn-sm" id="detailsWatchlistBtn"><i class="fa fa-bookmark"></i> Add to Watchlist</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for player (for trailer play) -->
+  <div class="modal fade" id="playerModal" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content bg-transparent border-0">
+        <div class="modal-body p-0">
+          <div class="ratio ratio-16x9">
+            <video id="player" controls crossorigin playsinline></video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Login/Signup -->
+  <div class="modal fade" id="authModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-dark text-light">
+        <div class="modal-header">
+          <h5 class="modal-title" id="authModalLabel">Sign In / Sign Up</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="authForm">
+            <div class="mb-3">
+              <label for="emailInput" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="emailInput" required />
+            </div>
+            <div class="mb-3">
+              <label for="passwordInput" class="form-label">Password</label>
+              <input type="password" class="form-control" id="passwordInput" required minlength="6"/>
+            </div>
+            <div class="form-text mb-3" id="authMessage" style="color: #ff6b6b"></div>
+            <button type="submit" class="btn btn-primary w-100 mb-2" id="submitBtn">Sign In</button>
+            <div class="text-center">
+              <small>
+                <a href="#" id="toggleAuthMode" class="text-info">Don't have an account? Sign Up</a>
+              </small>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS libs -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.polyfilled.js"></script>
+  <!-- Firebase SDKs (demo only, remove for your prod) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+
+  <script>
+    // --------- FIREBASE AUTH (same as before, can be removed if not needed) ---------
+    const firebaseConfig = {
+      apiKey: "AIzaSyC2xtDsNE65s9lopz3GLEmA5Ape8QBubfg",
+      authDomain: "cineverse-starter.firebaseapp.com",
+      projectId: "cineverse-starter",
+      storageBucket: "cineverse-starter.appspot.com",
+      messagingSenderId: "1028678223491",
+      appId: "1:1028678223491:web:93f4b84cadb20336f77db6",
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const loginBtn = document.getElementById("loginBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const userInfo = document.getElementById("userInfo");
+    const authButtons = document.getElementById("authButtons");
+    const userEmailSpan = document.getElementById("userEmail");
+    const authModal = new bootstrap.Modal(document.getElementById("authModal"));
+    const authForm = document.getElementById("authForm");
+    const authMessage = document.getElementById("authMessage");
+    const submitBtn = document.getElementById("submitBtn");
+    const toggleAuthModeLink = document.getElementById("toggleAuthMode");
+    let isLoginMode = true;
+
+    loginBtn.addEventListener("click", () => { authMessage.textContent = ""; authForm.reset(); submitBtn.textContent = "Sign In"; toggleAuthModeLink.textContent = "Don't have an account? Sign Up"; isLoginMode = true; authModal.show();});
+    toggleAuthModeLink.addEventListener("click", (e) => { e.preventDefault(); isLoginMode = !isLoginMode; submitBtn.textContent = isLoginMode ? "Sign In" : "Sign Up"; toggleAuthModeLink.textContent = isLoginMode ? "Don't have an account? Sign Up" : "Already have an account? Sign In"; authMessage.textContent = ""; authForm.reset();});
+    authForm.addEventListener("submit", (e) => { e.preventDefault(); authMessage.textContent = ""; const email = authForm.emailInput.value; const password = authForm.passwordInput.value; if (isLoginMode) { auth.signInWithEmailAndPassword(email, password).then(()=>authModal.hide()).catch((error)=>{authMessage.textContent = error.message;}); } else { auth.createUserWithEmailAndPassword(email, password).then(()=>authModal.hide()).catch((error)=>{authMessage.textContent = error.message;});}});
+    logoutBtn.addEventListener("click", () => {auth.signOut();});
+    auth.onAuthStateChanged((user) => { if (user) { userEmailSpan.textContent = user.email; userInfo.classList.remove("d-none"); authButtons.classList.add("d-none"); } else {userEmailSpan.textContent = ""; userInfo.classList.add("d-none"); authButtons.classList.remove("d-none");}});
+
+    // --------- MOVIE DATA (with extra fields for details modal) ---------
+    const SAMPLE_MOVIES = [
+      {
+        id: "m1",
+        title: "Neon Skyline",
+        year: 2024,
+        poster: "https://via.placeholder.com/400x600?text=Neon+Skyline",
+        src: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+        genre: ["Sci-Fi", "Thriller"],
+        description: "In a city where the future is neon-lit, a lone detective unravels a conspiracy that threatens humanity's existence.",
+        rating: 3.9,
+        badge: "Featured",
+        age: "16+",
+        price: 34.99
+      },
+      {
+        id: "m2",
+        title: "Silent Orbit",
+        year: 2022,
+        poster: "https://via.placeholder.com/400x600?text=Silent+Orbit",
+        src: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+        genre: ["Drama", "Sci-Fi"],
+        description: "An astronaut stranded in space must find a way home before his oxygen runs out.",
+        rating: 4.2,
+        badge: "Awarded",
+        age: "12+",
+        price: 19.99
+      },
+      {
+        id: "m3",
+        title: "Glass City",
+        year: 2021,
+        poster: "https://via.placeholder.com/400x600?text=Glass+City",
+        src: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+        genre: ["Action"],
+        description: "Criminals and heroes collide in a city made of glass and secrets.",
+        rating: 4.5,
+        badge: "Popular",
+        age: "18+",
+        price: 24.99
+      },
+      {
+        id: "m4",
+        title: "Midnight Signals",
+        year: 2023,
+        poster: "https://via.placeholder.com/400x600?text=Midnight+Signals",
+        src: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+        genre: ["Drama"],
+        description: "A mysterious transmission at midnight changes the fate of a small town.",
+        rating: 3.7,
+        badge: "New",
+        age: "13+",
+        price: 29.99
+      },
+    ];
+
+    let state = {
+      movies: [...SAMPLE_MOVIES],
+      watchlist: JSON.parse(localStorage.getItem("cine_watchlist") || "[]"),
+    };
+
+    // --------- UI HELPERS ---------
+    function el(tag, cls = "") { const e = document.createElement(tag); if (cls) e.className = cls; return e; }
+    function renderGrid(list) {
+      const grid = document.getElementById("grid");
+      grid.innerHTML = "";
+      list.forEach((m) => {
+        const col = el("div", "col-6 col-md-3");
+        const card = el("div", "movie-card");
+        card.onclick = (e) => { if (!e.target.closest(".card-body button")) openDetails(m);}
+        const img = el("img", "poster");
+        img.src = m.poster; img.alt = m.title;
+        const body = el("div", "card-body");
+        const h5 = el("h6");
+        h5.textContent = m.title + " (" + m.year + ")";
+        const meta = el("div", "d-flex justify-content-between align-items-center mt-2");
+        const g = el("small");
+        g.textContent = m.genre.join(", ");
+        const actions = el("div");
+        const playBtn = el("button", "btn btn-sm btn-outline-light me-2");
+        playBtn.innerHTML = '<i class="fa fa-play"></i> Play';
+        playBtn.onclick = (ev) => {ev.stopPropagation(); openPlayer(m);}
+        const wlBtn = el("button", "btn btn-sm");
+        wlBtn.style.background = state.watchlist.includes(m.id) ? "var(--accent)" : "transparent";
+        wlBtn.style.color = state.watchlist.includes(m.id) ? "#001820" : "#cfeef7";
+        wlBtn.textContent = state.watchlist.includes(m.id) ? "In Watchlist" : "Add to Watchlist";
+        wlBtn.onclick = (ev) => {ev.stopPropagation(); toggleWatchlist(m.id, wlBtn);}
+        actions.appendChild(playBtn); actions.appendChild(wlBtn);
+        body.appendChild(h5); body.appendChild(meta); meta.appendChild(g); meta.appendChild(actions);
+        card.appendChild(img); card.appendChild(body); col.appendChild(card); grid.appendChild(col);
+      });
+      document.getElementById("count").textContent = list.length;
+    }
+    function toggleWatchlist(id, btn) {
+      if (!auth.currentUser) { alert("Please sign in to add to your watchlist!"); return;}
+      if (state.watchlist.includes(id)) {
+        state.watchlist = state.watchlist.filter((i) => i !== id);
+        btn.style.background = "transparent"; btn.style.color = "#cfeef7"; btn.textContent = "Add to Watchlist";
+      } else {
+        state.watchlist.push(id);
+        btn.style.background = "var(--accent)"; btn.style.color = "#001820"; btn.textContent = "In Watchlist";
+      }
+      localStorage.setItem("cine_watchlist", JSON.stringify(state.watchlist));
+    }
+    function openPlayer(movie) {
+      const video = document.getElementById("player");
+      video.src = movie.src;
+      video.play();
+      new bootstrap.Modal(document.getElementById("playerModal")).show();
+    }
+
+    // --------- DETAILS MODAL ---------
+    const detailsModal = new bootstrap.Modal(document.getElementById("detailsModal"));
+    let detailsMovie = null;
+    function openDetails(movie) {
+      detailsMovie = movie;
+      document.getElementById("detailsPoster").src = movie.poster;
+      document.getElementById("detailsTitle").textContent = movie.title;
+      document.getElementById("detailsBadge").textContent = movie.badge || "";
+      document.getElementById("detailsAge").textContent = movie.age || "";
+      document.getElementById("detailsDesc").textContent = movie.description || "";
+      document.getElementById("detailsYear").textContent = movie.year;
+      document.getElementById("detailsPrice").textContent = "$" + movie.price.toFixed(2);
+      // Genres
+      const genres = document.getElementById("detailsGenres");
+      genres.innerHTML = "";
+      movie.genre.forEach((g) => {
+        const badge = document.createElement("span");
+        badge.className = "genre-badge";
+        badge.textContent = g;
+        genres.appendChild(badge);
+      });
+      // Rating
+      const rating = document.getElementById("detailsRating");
+      rating.innerHTML = "";
+      for (let i = 1; i <= 5; ++i) {
+        rating.innerHTML += `<span class="rating-star">${i <= Math.round(movie.rating) ? "★" : "☆"}</span>`;
+      }
+      rating.innerHTML += `<span style="margin-left:8px;">${movie.rating}</span>`;
+      // Watchlist btn
+      const wlBtn = document.getElementById("detailsWatchlistBtn");
+      wlBtn.innerHTML = `<i class="fa fa-bookmark"></i> ${state.watchlist.includes(movie.id) ? "In Watchlist" : "Add to Watchlist"}`;
+      wlBtn.className = "btn btn-sm " + (state.watchlist.includes(movie.id) ? "btn-warning" : "btn-outline-light");
+      wlBtn.onclick = function() { toggleWatchlistDetails(movie); };
+      // Play btn
+      document.getElementById("detailsPlayBtn").onclick = function() { openPlayer(movie); };
+      // Buy btn
+      document.getElementById("buyBtn").onclick = function() { alert("Demo: Buying "+movie.title); };
+      detailsModal.show();
+    }
+    function toggleWatchlistDetails(movie) {
+      const idx = state.watchlist.indexOf(movie.id);
+      if (!auth.currentUser) { alert("Please sign in to add to your watchlist!"); return;}
+      if (idx !== -1) {
+        state.watchlist.splice(idx, 1);
+      } else {
+        state.watchlist.push(movie.id);
+      }
+      localStorage.setItem("cine_watchlist", JSON.stringify(state.watchlist));
+      openDetails(movie); // re-render
+      renderGrid(state.movies); // update grid btns
+    }
+
+    // --------- SEARCH ---------
+    document.getElementById("searchInput").addEventListener("input", (e) => {
+      const val = e.target.value.toLowerCase();
+      const filtered = state.movies.filter((m) =>
+        m.title.toLowerCase().includes(val) || m.genre.some((g) => g.toLowerCase().includes(val))
+      );
+      renderGrid(filtered);
+    });
+
+    // --------- ON LOAD ---------
+    document.addEventListener("DOMContentLoaded", () => {
+      renderGrid(state.movies);
+      document.getElementById("year").textContent = new Date().getFullYear();
+    });
+  </script>
+</body>
+</html>

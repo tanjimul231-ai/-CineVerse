@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CineVerse — Movie Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0d1b2a;
+      --accent: #00fff7;
+      --accent2: #9d4edd;
+      --muted: #9aa8b2;
+    }
+    body { background: var(--bg); color: #cfeef7; font-family: 'Montserrat', Arial, sans-serif;}
+    .container-xl { max-width: 1200px; }
+    .logo { font-weight: 700; letter-spacing: 1px; color: var(--accent2); font-size: 22px;}
+    .movie-card { background: #14213d; border-radius: 10px; box-shadow: 0 4px 18px #0006; overflow: hidden;}
+    .movie-card img { width: 100%; height: 300px; object-fit: cover;}
+    .movie-card .card-body { padding: 16px;}
+    .movie-title { font-size: 1.1rem; font-weight: 700;}
+    .genre-badge { background: #232f40; color: var(--accent); font-size: 13px; border-radius: 7px; padding: 4px 10px; margin-right: 7px;}
+    .btn-play { background: var(--accent2); color: #fff; font-weight: 600; border: none; border-radius: 6px; padding: 6px 20px;}
+    .btn-play:hover { background: var(--accent);}
+  </style>
+</head>
+<body>
+  <div class="container-xl py-4">
+    <header class="d-flex align-items-center justify-content-between mb-4">
+      <div class="logo">Cine<span style="color: var(--accent)">Verse</span></div>
+      <nav class="d-none d-md-flex gap-3 ms-3">
+        <a class="nav-link text-light" href="#">Home</a>
+      </nav>
+    </header>
+    <h2 class="mb-4">Movie Library</h2>
+    <div id="grid" class="row g-4"></div>
+  </div>
+  <script>
+    // Demo Movies
+    const MOVIES = [
+      {
+        id: "m1",
+        name: "Neon Skyline",
+        year: 2024,
+        poster: "https://via.placeholder.com/400x600?text=Neon+Skyline",
+        trailer: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+        genre: ["Sci-Fi", "Thriller"],
+        imdb: 7.2,
+        cast: ["John Doe", "Lily Sky", "Ava Neo"],
+        desc: "In a future city lit by neon, a detective unravels a high-tech conspiracy."
+      },
+      {
+        id: "m2",
+        name: "Midnight Signals",
+        year: 2023,
+        poster: "https://via.placeholder.com/400x600?text=Midnight+Signals",
+        trailer: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+        genre: ["Drama", "Mystery"],
+        imdb: 6.8,
+        cast: ["Sam Pulse", "Vera Code"],
+        desc: "A mysterious transmission changes the fate of a small town forever."
+      }
+    ];
+    // Render grid
+    const grid = document.getElementById("grid");
+    MOVIES.forEach(movie => {
+      const col = document.createElement("div");
+      col.className = "col-12 col-sm-6 col-md-4 col-lg-3";
+      col.innerHTML = `
+        <div class="movie-card">
+          <img src="${movie.poster}" alt="${movie.name}">
+          <div class="card-body">
+            <div class="movie-title mb-2">${movie.name} (${movie.year})</div>
+            <div class="mb-2">${movie.genre.map(g=>`<span class="genre-badge">${g}</span>`).join('')}</div>
+            <div class="mb-3" style="color:#f4d35e;font-weight:600;">IMDb: ${movie.imdb}</div>
+            <button class="btn-play w-100" onclick="window.location.href='movie.html?id=${movie.id}'">
+              <i class="fa fa-play"></i> Play
+            </button>
+          </div>
+        </div>
+      `;
+      grid.appendChild(col);
+    });
+    // Save to localStorage for demo (details page will use it)
+    localStorage.setItem("CINEVERSE_MOVIES", JSON.stringify(MOVIES));
+  </script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
